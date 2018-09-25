@@ -39,6 +39,7 @@ const sectionProfileUser = document.getElementById('section-profile-user');
 const txtPostUserProfile = document.getElementById('textarea-post-user-profile');
 const selectPrivacityProfile = document.getElementById('select-privacity-profile');
 const btnPublicPostProfile = document.getElementById('btn-publicar-profile');
+const userName = document.getElementById('user-name-profile');
 
 // FUNCIÓN PARA EL MENÚ DESPLEGABLE
 document.addEventListener('DOMContentLoaded', function () {
@@ -81,20 +82,20 @@ let ref_ = '';
 // funciones firebase
 
 //FUNCION PARA CREAR POST Y GUARDAR EN DATABASE DE FIREBASE
-const makePost = (postUserTxt) => {
-  const x = firebase.auth().currentUser;
-  let datePosted = new Date();
-  let posts = {
+const makePost = (text) => {
+  const userFire = firebase.auth().currentUser;
+  const datePosted = new Date();
+  const posts = {
     created_at: datePosted,
-    description: postUserTxt.value,
-    uid: x.uid,
+    description: text,
+    uid: userFire.uid,
     privacity: privacityPost
   }
   const key = firebase.database().ref().child('users').push().key;
   posts.idPost = key;
-  let updates = {};
+  const updates = {};
   updates['/post/' + key] = posts;
-  updates['/users/' + x.uid + '/posts/' + key] = posts;
+  updates['/users/' + userFire.uid + '/posts/' + key] = posts;
   firebase.database().ref().update(updates)
 };
 
@@ -184,8 +185,6 @@ const showAllPostProfile = () => {
   ref_ = '/users/' + x__.uid + '/posts'
   let cont = 0;
   let ref = firebase.database().ref(ref_);
-
-
 
   ref.on('child_added', (newPost) => {
     let post = newPost.val();
@@ -609,11 +608,11 @@ btnPublicPostHome.addEventListener('click', () => {
   if (txtPostUserHome.value !== '') {
     if (selectPrivacity.options[selectPrivacity.selectedIndex].value == '') {
       privacityPost = 'public';
-      makePost(txtPostUserHome);
+      makePost(txtPostUserHome.value);
       txtPostUserHome.value = '';
     } else {
       privacityPost = selectPrivacity.options[selectPrivacity.selectedIndex].value;
-      makePost(txtPostUserHome);
+      makePost(txtPostUserHome.value);
       txtPostUserHome.value = '';
     }
   }
@@ -634,11 +633,11 @@ btnPublicPostProfile.addEventListener('click', () => {
   if (txtPostUserProfile.value !== '') {
     if (selectPrivacityProfile.options[selectPrivacityProfile.selectedIndex].value == '') {
       privacityPost = 'public';
-      makePost(txtPostUserProfile);
+      makePost(txtPostUserProfile.value);
       txtPostUserProfile.value = '';
     } else {
       privacityPost = selectPrivacityProfile.options[selectPrivacityProfile.selectedIndex].value;
-      makePost(txtPostUserProfile);
+      makePost(txtPostUserProfile.value);
       txtPostUserProfile.value = '';
     }
   }
