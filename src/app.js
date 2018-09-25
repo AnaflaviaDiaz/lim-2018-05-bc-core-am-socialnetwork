@@ -1,94 +1,94 @@
 // sections que están generales
-const sectionHeader = document.getElementById("header-main");
+const sectionHeader = document.getElementById('header-main');
 sectionHeader.innerHTML = headerMain; //obtiene la seccion en que pintara y la une con el codigo del componente
 
-const sectionPostPublicos = document.getElementById("contenido-post-publicos");
+const sectionPostPublicos = document.getElementById('contenido-post-publicos');
 
 // botones de NAV
-const navBtnLogIn = document.getElementById("nav-modal-log-in");
-const navBtnSignUp = document.getElementById("nav-modal-sign-up");
+const navBtnLogIn = document.getElementById('nav-modal-log-in');
+const navBtnSignUp = document.getElementById('nav-modal-sign-up');
 
 // mini nav
-const miniNavBtnLogIn = document.getElementById("mini-nav-modal-log-in");
-const miniNavBtnSignUp = document.getElementById("mini-nav-modal-sign-up");
+const miniNavBtnLogIn = document.getElementById('mini-nav-modal-log-in');
+const miniNavBtnSignUp = document.getElementById('mini-nav-modal-sign-up');
 
 // modals dentro de MAIN
-const modalLogIn = document.getElementById("modal-log-in");
-const modalSignUp = document.getElementById("modal-sign-up");
+const modalLogIn = document.getElementById('modal-log-in');
+const modalSignUp = document.getElementById('modal-sign-up');
 
 // dentro de modalLogIn
-const closeModalLogIn = document.getElementById("close-log-in");
-const sectionLogIn = document.getElementById("main-log-in");
+const closeModalLogIn = document.getElementById('close-log-in');
+const sectionLogIn = document.getElementById('main-log-in');
 
 // dentro de sectionLogIn
-const txtEmailLogIn = document.getElementById("txt-user-mail-login");
-const helperEmailLogIn = document.getElementById("incorrect-email");
+const txtEmailLogIn = document.getElementById('txt-user-mail-login');
+const helperEmailLogIn = document.getElementById('incorrect-email');
 
-const txtPasswordLogIn = document.getElementById("txt-user-password-login");
-const helperPasswordLogIn = document.getElementById("incorrect-password");
+const txtPasswordLogIn = document.getElementById('txt-user-password-login');
+const helperPasswordLogIn = document.getElementById('incorrect-password');
 
-const btnEmailLogIn = document.getElementById("btn-email-log-in");
-const btnFacebookLogIn = document.getElementById("btn-fb-log-in");
-const btnGoogleLogIn = document.getElementById("btn-google-log-in");
-const goToSignUp = document.getElementById("go-to-sign-up");
+const btnEmailLogIn = document.getElementById('btn-email-log-in');
+const btnFacebookLogIn = document.getElementById('btn-fb-log-in');
+const btnGoogleLogIn = document.getElementById('btn-google-log-in');
+const goToSignUp = document.getElementById('go-to-sign-up');
 
 // dentro de modalSignUp
-const closeModalSignUp = document.getElementById("close-sign-up");
-const sectionUserSelection = document.getElementById("select-user");
+const closeModalSignUp = document.getElementById('close-sign-up');
+const sectionUserSelection = document.getElementById('select-user');
 const optionsDoctors = document.getElementById('options-doctors');
-const optionsUsers = document.getElementById("options-users");
-const sectionSignUpDoctors = document.getElementById("main-sign-up-doctors");
-const sectionSignUpUsers = document.getElementById("main-sign-up-users");
+const optionsUsers = document.getElementById('options-users');
+const sectionSignUpDoctors = document.getElementById('main-sign-up-doctors');
+const sectionSignUpUsers = document.getElementById('main-sign-up-users');
 
 // dentro de sectionUserSelection
-const goToSignUpDoctors = document.getElementById("sign-up-selection-doctors");
-const goToSignUpUsers = document.getElementById("sign-up-selection-users");
+const goToSignUpDoctors = document.getElementById('sign-up-selection-doctors');
+const goToSignUpUsers = document.getElementById('sign-up-selection-users');
 
 // dentro de optionsDoctors
-const selectEspecialidad = document.getElementById("select_especialidad")
-const helperEspecialidad = document.getElementById("incorrect-specialty");
-const txtColegiatura = document.getElementById("colegiatura");
-const helperColegiatura = document.getElementById("incorrect-colegiatura");
-const btnModalEmailSignUpDoctors = document.getElementById("btn-email-modal-sign-up-doctors");
-const btnModalFbSignUpDoctors = document.getElementById("btn-fb-modal-sign-up-doctors");
-const btnModalGgSignUpDoctors = document.getElementById("btn-gg-modal-sign-up-doctors");
+const selectEspecialidad = document.getElementById('select_especialidad')
+const helperEspecialidad = document.getElementById('incorrect-specialty');
+const txtColegiatura = document.getElementById('colegiatura');
+const helperColegiatura = document.getElementById('incorrect-colegiatura');
+const btnModalEmailSignUpDoctors = document.getElementById('btn-email-modal-sign-up-doctors');
+const btnModalFbSignUpDoctors = document.getElementById('btn-fb-modal-sign-up-doctors');
+const btnModalGgSignUpDoctors = document.getElementById('btn-gg-modal-sign-up-doctors');
 
 // dentro de optionsUsers
-const btnModalEmailSignUpUsers = document.getElementById("btn-email-modal-sign-up-users");
-const btnModalFbSignUpUsers = document.getElementById("btn-fb-modal-sign-up-users");
-const btnModalGgSignUpUsers = document.getElementById("btn-gg-modal-sign-up-users");
+const btnModalEmailSignUpUsers = document.getElementById('btn-email-modal-sign-up-users');
+const btnModalFbSignUpUsers = document.getElementById('btn-fb-modal-sign-up-users');
+const btnModalGgSignUpUsers = document.getElementById('btn-gg-modal-sign-up-users');
 
 // dentro de signup doctors de email sectionSignUpDoctors
-const txtDoctorNameSignUp = document.getElementById("txt-doctor-name-signup");
-const helperNameDoctorSignUp = document.getElementById("incorrect-doctor-name-sign-up");
+const txtDoctorNameSignUp = document.getElementById('txt-doctor-name-signup');
+const helperNameDoctorSignUp = document.getElementById('incorrect-doctor-name-sign-up');
 
-const txtDoctorEmailSignUp = document.getElementById("txt-doctor-mail-signup");
-const helperEmailDoctorSignUp = document.getElementById("incorrect-doctor-mail-sign-up");
+const txtDoctorEmailSignUp = document.getElementById('txt-doctor-mail-signup');
+const helperEmailDoctorSignUp = document.getElementById('incorrect-doctor-mail-sign-up');
 
-const txtDoctorPasswordSignUp = document.getElementById("txt-doctor-password-signup");
-const helperPasswordDoctorSignUp = document.getElementById("incorrect-doctor-password-sign-up");
+const txtDoctorPasswordSignUp = document.getElementById('txt-doctor-password-signup');
+const helperPasswordDoctorSignUp = document.getElementById('incorrect-doctor-password-sign-up');
 
-const txtDoctorConfirmPasswordSignUp = document.getElementById("txt-doctor-confirm-password-signup");
-const helperConfirmPasswordDoctorSignUp = document.getElementById("incorrect-doctor-confirm-password-sign-up");
+const txtDoctorConfirmPasswordSignUp = document.getElementById('txt-doctor-confirm-password-signup');
+const helperConfirmPasswordDoctorSignUp = document.getElementById('incorrect-doctor-confirm-password-sign-up');
 
-const btnSignUpDoctors = document.getElementById("btn-sign-up-doctors");
-const goToLogInFromDoctors = document.getElementById("go-to-log-in-doctors");
+const btnSignUpDoctors = document.getElementById('btn-sign-up-doctors');
+const goToLogInFromDoctors = document.getElementById('go-to-log-in-doctors');
 
 // dentro de signup users de email sectionSignUpUsers
-const txtUserNameSignUp = document.getElementById("txt-user-name-signup");
-const helperNameUserSignUp = document.getElementById("incorrect-user-name-sign-up");
+const txtUserNameSignUp = document.getElementById('txt-user-name-signup');
+const helperNameUserSignUp = document.getElementById('incorrect-user-name-sign-up');
 
-const txtUserEmailSignUp = document.getElementById("txt-user-mail-signup");
-const helperEmailUserSignUp = document.getElementById("incorrect-user-email-sign-up");
+const txtUserEmailSignUp = document.getElementById('txt-user-mail-signup');
+const helperEmailUserSignUp = document.getElementById('incorrect-user-email-sign-up');
 
-const txtUserPasswordSignUp = document.getElementById("txt-user-password-signup");
-const helperPasswordUserSignUp = document.getElementById("incorrect-user-password-sign-up");
+const txtUserPasswordSignUp = document.getElementById('txt-user-password-signup');
+const helperPasswordUserSignUp = document.getElementById('incorrect-user-password-sign-up');
 
-const txtUserConfirmPasswordSignUp = document.getElementById("txt-user-confirm-password-signup");
-const helperConfirmPasswordUserSignUp = document.getElementById("incorrect-user-confirm-password-sign-up");
+const txtUserConfirmPasswordSignUp = document.getElementById('txt-user-confirm-password-signup');
+const helperConfirmPasswordUserSignUp = document.getElementById('incorrect-user-confirm-password-sign-up');
 
-const btnSignUpUsers = document.getElementById("btn-sign-up-users");
-const goToLogInFromUsers = document.getElementById("go-to-log-in-users");
+const btnSignUpUsers = document.getElementById('btn-sign-up-users');
+const goToLogInFromUsers = document.getElementById('go-to-log-in-users');
 
 const patronEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
 
@@ -115,8 +115,8 @@ const writeUserDbFirebase = (uid, name, email, type, specialty, colegiatura, ima
     colegiatura: colegiatura,
     profile_picture: imageUrl
   }).then(response => {
-    swal("Bienvenido a Salutem", {
-      icon: "success",
+    swal('Bienvenido a Salutem', {
+      icon: 'success',
     }).then(() => window.location.href = 'html/menu.html');
   }).catch(error => {
   });
@@ -144,8 +144,8 @@ firebase.auth().onAuthStateChanged(user => {
   } else {
     M.updateTextFields();
     getPublicPost();
-    navBtnLogIn.style.display = "block";
-    navBtnSignUp.style.display = "block";
+    navBtnLogIn.style.display = 'block';
+    navBtnSignUp.style.display = 'block';
   }
 });
 
@@ -174,14 +174,14 @@ const showAlertEspecificDoctor = (validate, e) => {
   else helperColegiatura.hidden = false;
 
   if (validate.especialidad && validate.colegiatura) {
-    if (e.currentTarget.id === "btn-email-modal-sign-up-doctors") signUpUsers(e);
-    else if (e.currentTarget.id === "btn-gg-modal-sign-up-doctors") {
+    if (e.currentTarget.id === 'btn-email-modal-sign-up-doctors') signUpUsers(e);
+    else if (e.currentTarget.id === 'btn-gg-modal-sign-up-doctors') {
       userLocal.type = 'doctor';
       userLocal.specialty = selectEspecialidad.options[selectEspecialidad.selectedIndex].value;
       userLocal.colegiatura = txtColegiatura.value;
       isProcessing = true;
       googleAccount();
-    } else if (e.currentTarget.id === "btn-fb-modal-sign-up-doctors") {
+    } else if (e.currentTarget.id === 'btn-fb-modal-sign-up-doctors') {
       userLocal.type = 'doctor';
       userLocal.specialty = selectEspecialidad.options[selectEspecialidad.selectedIndex].value;
       userLocal.colegiatura = txtColegiatura.value;
@@ -207,15 +207,15 @@ const signUpByDoctors = (name, email, pass, especialidad, colegiatura) => {
 }
 
 const signUpUsers = (e) => {
-  if (e.currentTarget.id === "btn-email-modal-sign-up-users") {
-    sectionSignUpUsers.style.display = "block";
-    sectionUserSelection.style.display = "none";
-    optionsUsers.style.display = "none";
+  if (e.currentTarget.id === 'btn-email-modal-sign-up-users') {
+    sectionSignUpUsers.style.display = 'block';
+    sectionUserSelection.style.display = 'none';
+    optionsUsers.style.display = 'none';
   } else {
     // aqui se deberia mostrar el signup para los doctores
-    sectionSignUpDoctors.style.display = "block";
-    sectionUserSelection.style.display = "none";
-    optionsDoctors.style.display = "none";
+    sectionSignUpDoctors.style.display = 'block';
+    sectionUserSelection.style.display = 'none';
+    optionsDoctors.style.display = 'none';
   }
 }
 
@@ -237,7 +237,7 @@ const signUpByUsers = (name, email, pass) => {
 //validaciones de signup divisiones para pacientes y doctores
 const showAlertSignUpUsers = (validate, e) => {
   // para pacientes
-  if (e.currentTarget.id === "btn-sign-up-users") {
+  if (e.currentTarget.id === 'btn-sign-up-users') {
     if (validate.name) helperNameUserSignUp.hidden = true;
     else helperNameUserSignUp.hidden = false;
 
@@ -274,20 +274,20 @@ const showAlertSignUpUsers = (validate, e) => {
 
 const showSignUp = () => {
   // enlace de login para ingresar a signup
-  txtEmailLogIn.value = "";
-  txtPasswordLogIn.value = "";
+  txtEmailLogIn.value = '';
+  txtPasswordLogIn.value = '';
   closeNavModalLogIn();
   openNavModalSignUp();
 }
 
 const showLogIn = () => {
-  if (txtEmailLogIn !== "" && txtPasswordLogIn !== "") {
-    txtEmailLogIn.value = "";
-    txtPasswordLogIn.value = "";
+  if (txtEmailLogIn !== '' && txtPasswordLogIn !== '') {
+    txtEmailLogIn.value = '';
+    txtPasswordLogIn.value = '';
   }
   closeNavModalSignUp();
-  sectionSignUpUsers.style.display = "none";
-  sectionSignUpDoctors.style.display = "none";
+  sectionSignUpUsers.style.display = 'none';
+  sectionSignUpDoctors.style.display = 'none';
   openNavModalLogIn();
 }
 
@@ -295,7 +295,7 @@ const providerGoogle = (fireUser) => {
   let existe = false;
   const rootRef = firebase.database().ref();
   const list = rootRef.child('users');
-  list.once("value", (p) => {
+  list.once('value', (p) => {
     const userGoogle = Object.values(p.val());
     userGoogle.map(user => {
       if (user.email === fireUser.email) {
@@ -312,7 +312,7 @@ const providerFacebook = (fireUser) => {
   let existe = false;
   const rootRef = firebase.database().ref();
   const list = rootRef.child('users');
-  list.once("value", (p) => {
+  list.once('value', (p) => {
     const userFacebook = Object.values(p.val());
     userFacebook.map(user => {
       if (user.email === fireUser.email) {
@@ -327,46 +327,46 @@ const providerFacebook = (fireUser) => {
 
 const showOptionsUserSelect = (e) => {
   M.updateTextFields();
-  if (e.currentTarget.id === "sign-up-selection-users") {
-    sectionUserSelection.style.display = "none";
-    optionsUsers.style.display = "block";
+  if (e.currentTarget.id === 'sign-up-selection-users') {
+    sectionUserSelection.style.display = 'none';
+    optionsUsers.style.display = 'block';
   } else {
-    sectionUserSelection.style.display = "none";
-    optionsDoctors.style.display = "block";
+    sectionUserSelection.style.display = 'none';
+    optionsDoctors.style.display = 'block';
   }
 };
 
 const openNavModalLogIn = () => {
-  modalLogIn.style.display = "block";
+  modalLogIn.style.display = 'block';
 }
 
 const closeNavModalLogIn = () => {
   // vaciamos contenido de login cuando se cierra el modal
-  modalLogIn.style.display = "none";
+  modalLogIn.style.display = 'none';
   helperEmailLogIn.hidden = true;
   helperPasswordLogIn.hidden = true;
-  txtEmailLogIn.value = "";
-  txtPasswordLogIn.value = "";
+  txtEmailLogIn.value = '';
+  txtPasswordLogIn.value = '';
   M.updateTextFields();
 }
 
 const openNavModalSignUp = () => {
-  txtColegiatura.value = "";
-  txtDoctorNameSignUp.value = "";
-  txtDoctorEmailSignUp.value = "";
-  txtDoctorPasswordSignUp.value = "";
-  txtDoctorConfirmPasswordSignUp.value = "";
+  txtColegiatura.value = '';
+  txtDoctorNameSignUp.value = '';
+  txtDoctorEmailSignUp.value = '';
+  txtDoctorPasswordSignUp.value = '';
+  txtDoctorConfirmPasswordSignUp.value = '';
   // para cualquier ocasion está quedando en blanquear las secciones y que solo aparezca la seleccion de usuarios
-  sectionUserSelection.style.display = "block";
-  optionsDoctors.style.display = "none";
-  optionsUsers.style.display = "none";
-  sectionSignUpDoctors.style.display = "none";
-  sectionSignUpUsers.style.display = "none";
-  modalSignUp.style.display = "block";
+  sectionUserSelection.style.display = 'block';
+  optionsDoctors.style.display = 'none';
+  optionsUsers.style.display = 'none';
+  sectionSignUpDoctors.style.display = 'none';
+  sectionSignUpUsers.style.display = 'none';
+  modalSignUp.style.display = 'block';
 }
 
 const closeNavModalSignUp = () => {
-  modalSignUp.style.display = "none";
+  modalSignUp.style.display = 'none';
 }
 
 const pintarPost = (post) => {
@@ -399,83 +399,83 @@ const getPublicPost = () => {
       ref.ref('/users/' + post.uid).once('value').then((snapshot) => {
         const username = (snapshot.val().username) || 'Anonymous';
         post.username = username;
-        if (post.privacity === "public") pintarPost(post);
+        if (post.privacity === 'public') pintarPost(post);
       });
     });
 }
 
 // login
-navBtnLogIn.addEventListener("click", () => openNavModalLogIn());
-closeModalLogIn.addEventListener("click", () => closeNavModalLogIn());
+navBtnLogIn.addEventListener('click', () => openNavModalLogIn());
+closeModalLogIn.addEventListener('click', () => closeNavModalLogIn());
 // funcion validate debe mandar dos parámetros (email, password)
-btnEmailLogIn.addEventListener("click", () => {
+btnEmailLogIn.addEventListener('click', () => {
   const validate = validateLogIn(txtEmailLogIn.value, txtPasswordLogIn.value);
   showAlertLogIn(validate);
 });
-btnFacebookLogIn.addEventListener("click", () => {
+btnFacebookLogIn.addEventListener('click', () => {
   isProcessing = true;
   facebookAccount();
 });
-btnGoogleLogIn.addEventListener("click", () => {
+btnGoogleLogIn.addEventListener('click', () => {
   isProcessing = true;
   googleAccount();
 });
-goToSignUp.addEventListener("click", () => showSignUp());
-miniNavBtnLogIn.addEventListener("click", () => {
+goToSignUp.addEventListener('click', () => showSignUp());
+miniNavBtnLogIn.addEventListener('click', () => {
   closeNavModalSignUp();
   openNavModalLogIn();
 });
 
 // signup
-navBtnSignUp.addEventListener("click", () => openNavModalSignUp());
-closeModalSignUp.addEventListener("click", () => closeNavModalSignUp());
-goToSignUpDoctors.addEventListener("click", (e) => showOptionsUserSelect(e));
-goToSignUpUsers.addEventListener("click", (e) => showOptionsUserSelect(e));
-miniNavBtnSignUp.addEventListener("click", () => {
+navBtnSignUp.addEventListener('click', () => openNavModalSignUp());
+closeModalSignUp.addEventListener('click', () => closeNavModalSignUp());
+goToSignUpDoctors.addEventListener('click', (e) => showOptionsUserSelect(e));
+goToSignUpUsers.addEventListener('click', (e) => showOptionsUserSelect(e));
+miniNavBtnSignUp.addEventListener('click', () => {
   closeNavModalLogIn();
   openNavModalSignUp();
   close();
 });
 
 // signup doctors
-btnModalEmailSignUpDoctors.addEventListener("click", (e) => {
+btnModalEmailSignUpDoctors.addEventListener('click', (e) => {
   const validate = validateEspecificDoctor(selectEspecialidad.options[selectEspecialidad.selectedIndex].value, txtColegiatura.value);
   showAlertEspecificDoctor(validate, e);
 });
-btnModalFbSignUpDoctors.addEventListener("click", (e) => {
+btnModalFbSignUpDoctors.addEventListener('click', (e) => {
   const validate = validateEspecificDoctor(selectEspecialidad.options[selectEspecialidad.selectedIndex].value, txtColegiatura.value);
   showAlertEspecificDoctor(validate, e);
 });
-btnModalGgSignUpDoctors.addEventListener("click", (e) => {
+btnModalGgSignUpDoctors.addEventListener('click', (e) => {
   const validate = validateEspecificDoctor(selectEspecialidad.options[selectEspecialidad.selectedIndex].value, txtColegiatura.value);
   showAlertEspecificDoctor(validate, e);
 });
 
-btnSignUpDoctors.addEventListener("click", (e) => {
+btnSignUpDoctors.addEventListener('click', (e) => {
   const validate = validateFormSignUpUsers(txtDoctorNameSignUp.value, txtDoctorEmailSignUp.value, txtDoctorPasswordSignUp.value, txtDoctorConfirmPasswordSignUp.value);
   showAlertSignUpUsers(validate, e);
 });
-goToLogInFromDoctors.addEventListener("click", () => showLogIn());
+goToLogInFromDoctors.addEventListener('click', () => showLogIn());
 
 // signup users
-btnModalEmailSignUpUsers.addEventListener("click", (e) => signUpUsers(e));
-btnModalFbSignUpUsers.addEventListener("click", () => {
+btnModalEmailSignUpUsers.addEventListener('click', (e) => signUpUsers(e));
+btnModalFbSignUpUsers.addEventListener('click', () => {
   userLocal.type = 'paciente';
   isProcessing = true;
   facebookAccount();
 });
-btnModalGgSignUpUsers.addEventListener("click", () => {
+btnModalGgSignUpUsers.addEventListener('click', () => {
   userLocal.type = 'paciente';
   isProcessing = true;
   googleAccount();
 });
 
-btnSignUpUsers.addEventListener("click", (e) => {
+btnSignUpUsers.addEventListener('click', (e) => {
   const validate = validateFormSignUpUsers(txtUserNameSignUp.value, txtUserEmailSignUp.value, txtUserPasswordSignUp.value, txtUserConfirmPasswordSignUp.value);
   showAlertSignUpUsers(validate, e);
 });
-goToLogInFromUsers.addEventListener("click", () => showLogIn());
-sectionPostPublicos.addEventListener("click", () => openNavModalLogIn());
+goToLogInFromUsers.addEventListener('click', () => showLogIn());
+sectionPostPublicos.addEventListener('click', () => openNavModalLogIn());
 
 // FUNCIÓN PARA EL MENÚ DESPLEGABLE
 document.addEventListener('DOMContentLoaded', () => {

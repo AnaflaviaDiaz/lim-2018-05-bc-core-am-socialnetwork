@@ -1,38 +1,44 @@
-const headerWall = document.getElementById("menu-header");
+const headerWall = document.getElementById('menu-header');
 // agregando contenido del componente header menu al header del muro
 headerWall.innerHTML = headerMenu;
 // boton de cerrar sesion del componente header
-const logOut = document.getElementById("header-nav-log-out");
+const logOut = document.getElementById('header-nav-log-out');
 // boton de cerrar sesion del componente header en mobile
-const miniBtnLogout = document.getElementById("mini-nav-modal-log-out");
+const miniBtnLogout = document.getElementById('mini-nav-modal-log-out');
 // tabs de navegación en componente header
-const tabHome = document.getElementById("linkHome");
-const miniTabHome = document.getElementById("mini-nav-modal-home");
+const tabHome = document.getElementById('linkHome');
+const miniTabHome = document.getElementById('mini-nav-modal-home');
 
-const tabHospital = document.getElementById("linkHospital");
-const miniTabHospital = document.getElementById("mini-nav-modal-hospital");
+const tabHospital = document.getElementById('linkHospital');
+const miniTabHospital = document.getElementById('mini-nav-modal-hospital');
 
-const tabSearch = document.getElementById("linkSearch");
-const miniTabSearch = document.getElementById("mini-nav-modal-search");
+const tabSearch = document.getElementById('linkSearch');
+const miniTabSearch = document.getElementById('mini-nav-modal-search');
 
-const tabProfileUser = document.getElementById("linkProfileUser");
-const miniTabProfileUser = document.getElementById("mini-nav-modal-profile-user");
+const tabProfileUser = document.getElementById('linkProfileUser');
+const miniTabProfileUser = document.getElementById('mini-nav-modal-profile-user');
 
-const sectionHome = document.getElementById("section-home");
+const sectionHome = document.getElementById('section-home');
+const txtPostUserHome = document.getElementById('textarea-post-user-home');
+const selectPrivacity = document.getElementById('select-privacity-home');
+const btnPublicPostHome = document.getElementById('btn-publicar-home');
 
-const sectionHospital = document.getElementById("section-hospital");
-const tableHospital = document.getElementById("table-hospital");
+const sectionHospital = document.getElementById('section-hospital');
+const tableHospital = document.getElementById('table-hospital');
 
 let listHospital = null; //contenedor de hospitales
 
-const sectionSearch = document.getElementById("section-search");
-const tableHospitalSearch = document.getElementById("table-hospital-search");
-const searchName = document.getElementById("search-by-name");
-const selectDistrito = document.getElementById("distrito");
+const sectionSearch = document.getElementById('section-search');
+const tableHospitalSearch = document.getElementById('table-hospital-search');
+const searchName = document.getElementById('search-by-name');
+const selectDistrito = document.getElementById('distrito');
 
-const sectionProfileUser = document.getElementById("section-profile-user");
+let privacityPost = null; //valores de privacidad de post en ambos (home-profile)
 
-
+const sectionProfileUser = document.getElementById('section-profile-user');
+const txtPostUserProfile = document.getElementById('textarea-post-user-profile');
+const selectPrivacityProfile = document.getElementById('select-privacity-profile');
+const btnPublicPostProfile = document.getElementById('btn-publicar-profile');
 
 // FUNCIÓN PARA EL MENÚ DESPLEGABLE
 document.addEventListener('DOMContentLoaded', function () {
@@ -61,14 +67,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // post
-const postUser = document.querySelectorAll("#textarea-post-user");
-const btnPublic = document.querySelectorAll("#btn-publicar");
-const bodyPostInicio = document.getElementById("section_posts");
-const bodyPostProfile = document.getElementById("section_posts_profile");
-const selectPrivacity = document.getElementById("select-privacity");
-const selectPrivacityProfile = document.getElementById("select-privacity-profile");
+const postUser = document.querySelectorAll('#textarea-post-user');
+const btnPublic = document.querySelectorAll('#btn-publicar');
+const bodyPostInicio = document.getElementById('section_posts');
+const bodyPostProfile = document.getElementById('section_posts_profile');
+
+
 let bodyPosts;
-let privacityPost = null;
+
 let ref_ = '';
 
 
@@ -93,13 +99,13 @@ const makePost = (postUserTxt) => {
 };
 
 window.onload = () => {
-  mostrarAllPost();
+  showAllPost();
   setTimeout(() => {
-    mostrarAllPostPorfile();
+    showAllPostProfile();
   }, 1500)
 }
 // FUNCION PARA MOSTRAR POST EN INTERFAZ
-const mostrarAllPost = () => {
+const showAllPost = () => {
   let cont = 0;
   let ref = firebase.database().ref('/post');
   ref.on('child_added', (newPost) => {
@@ -173,7 +179,7 @@ const mostrarAllPost = () => {
   })
 }
 
-const mostrarAllPostPorfile = () => {
+const showAllPostProfile = () => {
   let x__ = firebase.auth().currentUser;
   ref_ = '/users/' + x__.uid + '/posts'
   let cont = 0;
@@ -373,61 +379,18 @@ const likePost = (favorite) => {
 
 
 
-tabProfileUser.addEventListener("click", () => tabProfileUserDescription());
 
-miniTabProfileUser.addEventListener("click", () => tabProfileUserDescription());
-
-// boton de publicar un post
-
-
-btnPublic[0].addEventListener("click", () => {
-  privacityPost = null;
-  if (postUser[0].value !== "") {
-    if (selectPrivacity.options[selectPrivacity.selectedIndex].value == "") {
-      privacityPost = "public";
-      makePost(postUser[0]);
-      postUser[0].value = "";
-    } else {
-      privacityPost = selectPrivacity.options[selectPrivacity.selectedIndex].value;
-      makePost(postUser[0]);
-      postUser[0].value = "";
-    }
-  }
-});
-
-btnPublic[1].addEventListener("click", () => {
-  privacityPost = null;
-  if (postUser[1].value !== "") {
-    if (selectPrivacityProfile.options[selectPrivacityProfile.selectedIndex].value == "") {
-      privacityPost = "public";
-      makePost(postUser[1]);
-      postUser[1].value = "";
-    } else {
-      privacityPost = selectPrivacityProfile.options[selectPrivacityProfile.selectedIndex].value;
-      makePost(postUser[1]);
-      postUser[1].value = "";
-    }
-  }
-});
-
-
-
-
-
-
-
-
-// funciones
+// funciones ordenadas
 
 const showElementTab = (element) => {
-  element.style.display = "block";
-  element.className += " active";
+  element.style.display = 'block';
+  element.className += ' active';
 }
 
 const hideElementsTab = (arr) => {
   arr.forEach(element => {
-    element.style.display = "none";
-    let classes = element.className.replace("active", "");
+    element.style.display = 'none';
+    let classes = element.className.replace('active', '');
     element.className = classes;
   });
 }
@@ -449,7 +412,7 @@ const sortHospitalByDistrit = (distrito) => {
 }
 
 const orderByDistritSort = (name_distrito) => {
-  tableHospitalSearch.innerHTML = "";
+  tableHospitalSearch.innerHTML = '';
   const distrit = sortHospitalByDistrit(name_distrito);
   distrit.map(hospital => {
     tableHospitalSearch.innerHTML += `
@@ -465,67 +428,67 @@ const orderByDistritSort = (name_distrito) => {
 const switchDistrito = (distrito) => {
   switch (distrito) {
     case 'san-isidro':
-      orderByDistritSort("San Isidro");
+      orderByDistritSort('San Isidro');
       break;
     case 'miraflores':
-      orderByDistritSort("Miraflores");
+      orderByDistritSort('Miraflores');
       break;
     case 'surco':
-      orderByDistritSort("Surco");
+      orderByDistritSort('Surco');
       break;
     case 'pueblo-libre':
-      orderByDistritSort("Pueblo Libre");
+      orderByDistritSort('Pueblo Libre');
       break;
     case 'lima':
-      orderByDistritSort("Lima");
+      orderByDistritSort('Lima');
       break;
     case 'san-borja':
-      orderByDistritSort("San Borja");
+      orderByDistritSort('San Borja');
       break;
     case 'smp':
-      orderByDistritSort("S.M.P.");
+      orderByDistritSort('S.M.P.');
       break;
     case 'molina':
-      orderByDistritSort("La Molina");
+      orderByDistritSort('La Molina');
       break;
     case 'callao':
-      orderByDistritSort("Callao");
+      orderByDistritSort('Callao');
       break;
     case 'breña':
-      orderByDistritSort("Breña");
+      orderByDistritSort('Breña');
       break;
     case 'sjl':
-      orderByDistritSort("San Juan de Lurigancho");
+      orderByDistritSort('San Juan de Lurigancho');
       break;
     case 'san-miguel':
-      orderByDistritSort("San Miguel");
+      orderByDistritSort('San Miguel');
       break;
     case 'independencia':
-      orderByDistritSort("Independencia");
+      orderByDistritSort('Independencia');
       break;
     case 'sjm':
-      orderByDistritSort("San Juan De Miraflores");
+      orderByDistritSort('San Juan De Miraflores');
       break;
     case 'cañete':
-      orderByDistritSort("Cañete");
+      orderByDistritSort('Cañete');
       break;
     case 'jesus-maria':
-      orderByDistritSort("Jesús María");
+      orderByDistritSort('Jesús María');
       break;
     case 'surquillo':
-      orderByDistritSort("Surquillo");
+      orderByDistritSort('Surquillo');
       break;
     case 'chorrilos':
-      orderByDistritSort("Chorrillos");
+      orderByDistritSort('Chorrillos');
       break;
     case 'san-luis':
-      orderByDistritSort("San Luis");
+      orderByDistritSort('San Luis');
       break;
     case 'los-olivos':
-      orderByDistritSort("Los Olivos");
+      orderByDistritSort('Los Olivos');
       break;
     case 'lince':
-      orderByDistritSort("Lince");
+      orderByDistritSort('Lince');
       break;
     default:
       break;
@@ -540,7 +503,7 @@ const searchByName = (hospitales, text) => {
 }
 
 const showHospitalList = (list, e) => {
-  if (e === "linkHospital" || e === "mini-nav-modal-hospital") {
+  if (e === 'linkHospital' || e === 'mini-nav-modal-hospital') {
     list.map(hospital => {
       tableHospital.innerHTML += `
       <tr>
@@ -550,8 +513,8 @@ const showHospitalList = (list, e) => {
       </tr>
       `;
     });
-  } else if (e === "linkSearch" || e === "mini-nav-modal-search") {
-    tableHospitalSearch.innerHTML = "";
+  } else if (e === 'linkSearch' || e === 'mini-nav-modal-search') {
+    tableHospitalSearch.innerHTML = '';
     list.map(hospital => {
       tableHospitalSearch.innerHTML += `
       <tr>
@@ -563,7 +526,7 @@ const showHospitalList = (list, e) => {
     });
   } else {
     const filterHospital = searchByName(list, e);
-    tableHospitalSearch.innerHTML = "";
+    tableHospitalSearch.innerHTML = '';
     filterHospital.map(hospital => {
       tableHospitalSearch.innerHTML += `
       <tr>
@@ -583,7 +546,7 @@ const getHospital = (e) => {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let xhrHospital = JSON.parse(xhr.responseText);
       listHospital = xhrHospital;
-      if (e === "linkHospital" || e === "mini-nav-modal-hospital" || e === "linkSearch" || e === "mini-nav-modal-search") {
+      if (e === 'linkHospital' || e === 'mini-nav-modal-hospital' || e === 'linkSearch' || e === 'mini-nav-modal-search') {
         showHospitalList(xhrHospital, e);
       } else {
         showHospitalList(xhrHospital, e);
@@ -595,23 +558,23 @@ const getHospital = (e) => {
 
 const tabHomeDescription = () => {
   hideElementsTab([sectionSearch, sectionHospital, sectionProfileUser]);
-  // mostrarAllPost();
+  // showAllPost();
   showElementTab(sectionHome);
 }
 
 const tabHospitalDescription = (e) => {
-  sectionHospital.style.display = "block";
-  sectionHome.style.display = "none";
-  sectionProfileUser.style.display = "none";
-  sectionSearch.style.display = "none";
+  sectionHospital.style.display = 'block';
+  sectionHome.style.display = 'none';
+  sectionProfileUser.style.display = 'none';
+  sectionSearch.style.display = 'none';
   getHospital(e);
 }
 
 const tabSearchDescription = (e) => {
-  sectionSearch.style.display = "block";
-  sectionHospital.style.display = "none";
-  sectionHome.style.display = "none";
-  sectionProfileUser.style.display = "none";
+  sectionSearch.style.display = 'block';
+  sectionHospital.style.display = 'none';
+  sectionHome.style.display = 'none';
+  sectionProfileUser.style.display = 'none';
   getHospital(e);
 }
 
@@ -627,26 +590,56 @@ const tabProfileUserDescription = () => {
 
 // acciones de botones
 
-logOut.addEventListener("click", () => {
+logOut.addEventListener('click', () => {
   firebase.auth().signOut().then(() => {
     window.location.href = '../../src/'
   })
 });
 
-miniBtnLogout.addEventListener("click", () => {
+miniBtnLogout.addEventListener('click', () => {
   firebase.auth().signOut().then(() => {
     window.location.href = '../../src/'
   })
 });
 
-tabHome.addEventListener("click", () => tabHomeDescription());
-miniTabHome.addEventListener("click", () => tabHomeDescription());
+tabHome.addEventListener('click', () => tabHomeDescription());
+miniTabHome.addEventListener('click', () => tabHomeDescription());
+btnPublicPostHome.addEventListener('click', () => {
+  privacityPost = null;
+  if (txtPostUserHome.value !== '') {
+    if (selectPrivacity.options[selectPrivacity.selectedIndex].value == '') {
+      privacityPost = 'public';
+      makePost(txtPostUserHome);
+      txtPostUserHome.value = '';
+    } else {
+      privacityPost = selectPrivacity.options[selectPrivacity.selectedIndex].value;
+      makePost(txtPostUserHome);
+      txtPostUserHome.value = '';
+    }
+  }
+});
 
-tabHospital.addEventListener("click", (e) => tabHospitalDescription(e.currentTarget.id));
-miniTabHospital.addEventListener("click", (e) => tabHospitalDescription(e.currentTarget.id));
+tabHospital.addEventListener('click', (e) => tabHospitalDescription(e.currentTarget.id));
+miniTabHospital.addEventListener('click', (e) => tabHospitalDescription(e.currentTarget.id));
 
-miniTabSearch.addEventListener("click", (e) => tabSearchDescription(e.currentTarget.id));
-tabSearch.addEventListener("click", (e) => tabSearchDescription(e.currentTarget.id));
-searchName.addEventListener("input", (e) => getHospital(e.target.value)); //input para buscar el nombre del hospital
-selectDistrito.addEventListener("change", () => switchDistrito(selectDistrito.options[selectDistrito.selectedIndex].value));
+miniTabSearch.addEventListener('click', (e) => tabSearchDescription(e.currentTarget.id));
+tabSearch.addEventListener('click', (e) => tabSearchDescription(e.currentTarget.id));
+searchName.addEventListener('input', (e) => getHospital(e.target.value)); //input para buscar el nombre del hospital
+selectDistrito.addEventListener('change', () => switchDistrito(selectDistrito.options[selectDistrito.selectedIndex].value));
 
+tabProfileUser.addEventListener('click', () => tabProfileUserDescription());
+miniTabProfileUser.addEventListener('click', () => tabProfileUserDescription());
+btnPublicPostProfile.addEventListener('click', () => {
+  privacityPost = null;
+  if (txtPostUserProfile.value !== '') {
+    if (selectPrivacityProfile.options[selectPrivacityProfile.selectedIndex].value == '') {
+      privacityPost = 'public';
+      makePost(txtPostUserProfile);
+      txtPostUserProfile.value = '';
+    } else {
+      privacityPost = selectPrivacityProfile.options[selectPrivacityProfile.selectedIndex].value;
+      makePost(txtPostUserProfile);
+      txtPostUserProfile.value = '';
+    }
+  }
+});
