@@ -291,14 +291,14 @@ const savePost = (post, sectionid) => {
 const likePost = (favorite) => {
   const x = firebase.auth().currentUser;
   firebase.database().ref('/post/' + favorite.classList[1] + '/whoMakeLikes/' + x.uid).once('value').then((like) => {
-    var is_liked = (like.val() && like.val().uid) || 'undefined';
+    const is_liked = (like.val() && like.val().uid) || 'undefined';
     if (is_liked == 'undefined') {
-      let cantLikes = parseInt(favorite.parentNode.nextElementSibling.innerText) + 1;
-      let whoMakeLikes = {
+      const cantLikes = parseInt(favorite.parentNode.nextElementSibling.innerText) + 1;
+      const whoMakeLikes = {
         fecha: new Date(),
         uid: x.uid
       }
-      updates = {};
+      const updates = {};
       updates['/post/' + favorite.classList[1] + '/countLike'] = cantLikes;
       updates['/post/' + favorite.classList[1] + '/whoMakeLikes/' + x.uid] = whoMakeLikes;
       updates['/users/' + x.uid + '/posts/' + favorite.classList[1] + '/countLike'] = cantLikes;
@@ -312,8 +312,8 @@ const likePost = (favorite) => {
         }
       });
     } else {
-      let cantLikes = parseInt(favorite.parentNode.nextElementSibling.innerText) - 1;
-      updates = {};
+      const cantLikes = parseInt(favorite.parentNode.nextElementSibling.innerText) - 1;
+      const updates = {};
       updates['/post/' + favorite.classList[1] + '/countLike'] = cantLikes;
       updates['/post/' + favorite.classList[1] + '/whoMakeLikes/' + x.uid] = null;
       updates['/users/' + x.uid + '/posts/' + favorite.classList[1] + '/countLike'] = cantLikes;
@@ -327,8 +327,7 @@ const likePost = (favorite) => {
         }
       });
     }
-  })
-
+  });
 }
 
 
