@@ -224,15 +224,14 @@ const showAllPostProfile = () => {
     postBlock.parentNode.removeChild(postBlock);
   })
 }
+
 // FUNCION QUE PERMITE ELIMINAR POST
 const deletePost = (post, sectionid) => {
-  let postId = post.dataset.idpost,
-    postBlock = document.querySelector(sectionid + " div#" + postId);
-  const x = firebase.auth().currentUser;
-  let updates = {};
+  const postId = post.dataset.idpost;
+  const userFire = firebase.auth().currentUser;
+  const updates = {};
   updates['/post/' + postId] = null;
-  updates['/users/' + x.uid + '/posts/' + postId] = null;
-  //Aparece mensaje de confirmación para eliminiacion del mensaje
+  updates['/users/' + userFire.uid + '/posts/' + postId] = null;
   swal({
       title: "¿Está seguro que desea eliminar esta publicación?",
       text: "Puedes editar esta publicación si quieres cambiar algo.",
