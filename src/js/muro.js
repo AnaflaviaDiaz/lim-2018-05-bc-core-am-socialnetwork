@@ -1,31 +1,64 @@
 const headerWall = document.getElementById("menu-header");
+// agregando contenido del componente header menu al header del muro
 headerWall.innerHTML = headerMenu;
-
+// boton de cerrar sesion del componente header
 const logOut = document.getElementById("header-nav-log-out");
+// boton de cerrar sesion del componente header en mobile
 const miniBtnLogout = document.getElementById("mini-nav-modal-log-out");
+// tabs de navegación en componente header
 const tabHome = document.getElementById("linkHome");
-const tabHospital = document.getElementById("linkHospital");
-const tabProfileUser = document.getElementById("linkProfileUser");
-const tabSearch = document.getElementById("linkSearch");
 const miniTabHome = document.getElementById("mini-nav-modal-home");
-const miniTabHospital = document.getElementById("mini-nav-modal-hospital");
-const miniTabProfileUser = document.getElementById("mini-nav-modal-profile-user");
-const miniTabSearch = document.getElementById("mini-nav-modal-search");
-const sectionHome = document.getElementById("section-home");
-const sectionHospital = document.getElementById("section-hospital");
-const sectionProfileUser = document.getElementById("section-profile-user");
-const sectionSearch = document.getElementById("section-search");
 
+const tabHospital = document.getElementById("linkHospital");
+const miniTabHospital = document.getElementById("mini-nav-modal-hospital");
+
+const tabSearch = document.getElementById("linkSearch");
+const miniTabSearch = document.getElementById("mini-nav-modal-search");
+
+const tabProfileUser = document.getElementById("linkProfileUser");
+const miniTabProfileUser = document.getElementById("mini-nav-modal-profile-user");
+
+const sectionHome = document.getElementById("section-home");
+
+const sectionHospital = document.getElementById("section-hospital");
 const tableHospital = document.getElementById("table-hospital");
+
+let listHospital = null; //contenedor de hospitales
+
+const sectionSearch = document.getElementById("section-search");
 const tableHospitalSearch = document.getElementById("table-hospital-search");
-const search = document.getElementById("search");
-const SelectDistrito = document.getElementById("distrito");
-let listHospital = null;
+const searchName = document.getElementById("search-by-name");
+const selectDistrito = document.getElementById("distrito");
+
+const sectionProfileUser = document.getElementById("section-profile-user");
+
+
+
 // FUNCIÓN PARA EL MENÚ DESPLEGABLE
 document.addEventListener('DOMContentLoaded', function () {
   const elems = document.querySelectorAll('.sidenav');
   M.Sidenav.init(elems);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // post
 const postUser = document.querySelectorAll("#textarea-post-user");
@@ -38,207 +71,6 @@ let bodyPosts;
 let privacityPost = null;
 let ref_ = '';
 
-const tabHomeDescription = () => {
-  hideElementsTab([sectionSearch, sectionHospital, sectionProfileUser])
-  showElementTab(sectionHome);
-}
-
-const tabProfileUserDescription = () => {
-  hideElementsTab([sectionHospital, sectionHome, sectionSearch])
-  showElementTab(sectionProfileUser);
-}
-
-const showElementTab = (element) => {
-  element.style.display = "block";
-  element.className += " active";
-}
-
-const hideElementsTab = (arr) => {
-  arr.forEach(element => {
-    element.style.display = "none";
-    let classes = element.className.replace("active", "");
-    element.className = classes;
-  });
-}
-
-const tabHospitalDescription = (e) => {
-  sectionHospital.style.display = "block";
-  sectionHome.style.display = "none";
-  sectionProfileUser.style.display = "none";
-  sectionSearch.style.display = "none";
-  getHospital(e);
-}
-
-const tabSearchDescription = (e) => {
-  sectionSearch.style.display = "block";
-  sectionHospital.style.display = "none";
-  sectionHome.style.display = "none";
-  sectionProfileUser.style.display = "none";
-  getHospital(e);
-}
-
-const showHospitalList = (list, e) => {
-  if (e === "linkHospital" || e === "mini-nav-modal-hospital") {
-    list.map(hospital => {
-      tableHospital.innerHTML += `
-      <tr>
-        <td>${hospital.clinica}</td>
-        <td>${hospital.direccion}</td>
-        <td>${hospital.distrito}</td>
-      </tr>
-      `;
-    });
-  } else if (e === "linkSearch" || e === "mini-nav-modal-search") {
-    tableHospitalSearch.innerHTML = "";
-    list.map(hospital => {
-      tableHospitalSearch.innerHTML += `
-      <tr>
-        <td>${hospital.clinica}</td>
-        <td>${hospital.direccion}</td>
-        <td>${hospital.distrito}</td>
-      </tr>
-      `;
-    });
-  } else {
-    const filterHospital = searchByName(list, e);
-    tableHospitalSearch.innerHTML = "";
-    filterHospital.map(hospital => {
-      tableHospitalSearch.innerHTML += `
-      <tr>
-        <td>${hospital.clinica}</td>
-        <td>${hospital.direccion}</td>
-        <td>${hospital.distrito}</td>
-      </tr>
-      `;
-    })
-  }
-}
-
-const getHospital = (e) => {
-  let xhr = new XMLHttpRequest();
-  xhr.open('GET', '../data/hospitales.json', true);
-  xhr.onload = () => {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      let xhrHospital = JSON.parse(xhr.responseText);
-      listHospital = xhrHospital;
-      if (e === "linkHospital" || e === "mini-nav-modal-hospital" || e === "linkSearch" || e === "mini-nav-modal-search") {
-        showHospitalList(xhrHospital, e);
-      } else {
-        showHospitalList(xhrHospital, e);
-      }
-    }
-  }
-  xhr.send();
-}
-
-const searchByName = (hospitales, text) => {
-  let filterByHospital = hospitales.filter(hospital => {
-    return hospital.clinica.toUpperCase().indexOf(text.toUpperCase()) > -1;
-  });
-  return filterByHospital;
-}
-
-const sortHospitalByDistrit = (distrito) => {
-  const newListHospital = listHospital.filter(hospital => hospital.distrito === distrito);
-  const byDistrit = newListHospital.sort((a, b) => {
-    let x = a.distrito.toLowerCase();
-    let y = b.distrito.toLowerCase();
-    if (x < y) {
-      return -1;
-    }
-    if (x > y) {
-      return 1;
-    }
-    return 0;
-  });
-  return byDistrit;
-}
-
-const orderByDistritSort = (name_distrito) => {
-  tableHospitalSearch.innerHTML = "";
-  const distrit = sortHospitalByDistrit(name_distrito);
-  distrit.map(hospital => {
-    tableHospitalSearch.innerHTML += `
-    <tr>
-      <td>${hospital.clinica}</td>
-      <td>${hospital.direccion}</td>
-      <td>${hospital.distrito}</td>
-    </tr>
-    `;
-  });
-}
-
-const switchDistrito = (distrito) => {
-  switch (distrito) {
-    case 'san-isidro':
-      orderByDistritSort("San Isidro");
-      break;
-    case 'miraflores':
-      orderByDistritSort("Miraflores");
-      break;
-    case 'surco':
-      orderByDistritSort("Surco");
-      break;
-    case 'pueblo-libre':
-      orderByDistritSort("Pueblo Libre");
-      break;
-    case 'lima':
-      orderByDistritSort("Lima");
-      break;
-    case 'san-borja':
-      orderByDistritSort("San Borja");
-      break;
-    case 'smp':
-      orderByDistritSort("S.M.P.");
-      break;
-    case 'molina':
-      orderByDistritSort("La Molina");
-      break;
-    case 'callao':
-      orderByDistritSort("Callao");
-      break;
-    case 'breña':
-      orderByDistritSort("Breña");
-      break;
-    case 'sjl':
-      orderByDistritSort("San Juan de Lurigancho");
-      break;
-    case 'san-miguel':
-      orderByDistritSort("San Miguel");
-      break;
-    case 'independencia':
-      orderByDistritSort("Independencia");
-      break;
-    case 'sjm':
-      orderByDistritSort("San Juan De Miraflores");
-      break;
-    case 'cañete':
-      orderByDistritSort("Cañete");
-      break;
-    case 'jesus-maria':
-      orderByDistritSort("Jesús María");
-      break;
-    case 'surquillo':
-      orderByDistritSort("Surquillo");
-      break;
-    case 'chorrilos':
-      orderByDistritSort("Chorrillos");
-      break;
-    case 'san-luis':
-      orderByDistritSort("San Luis");
-      break;
-    case 'los-olivos':
-      orderByDistritSort("Los Olivos");
-      break;
-    case 'lince':
-      orderByDistritSort("Lince");
-      break;
-
-    default:
-      break;
-  }
-
-}
 
 // funciones firebase
 
@@ -538,29 +370,12 @@ const likePost = (favorite) => {
 
 }
 
-logOut.addEventListener("click", () => {
-  firebase.auth().signOut().then(() => {
-    window.location.href = '../../src/'
-  })
-});
 
-miniBtnLogout.addEventListener("click", () => {
-  firebase.auth().signOut().then(() => {
-    window.location.href = '../../src/'
-  })
-});
 
-tabHome.addEventListener("click", () => tabHomeDescription());
-tabHospital.addEventListener("click", (e) => tabHospitalDescription(e.currentTarget.id));
+
 tabProfileUser.addEventListener("click", () => tabProfileUserDescription());
-tabSearch.addEventListener("click", (e) => tabSearchDescription(e.currentTarget.id));
-miniTabHome.addEventListener("click", () => tabHomeDescription());
-miniTabHospital.addEventListener("click", (e) => tabHospitalDescription(e.currentTarget.id));
-miniTabProfileUser.addEventListener("click", () => tabProfileUserDescription());
-miniTabSearch.addEventListener("click", (e) => tabSearchDescription(e.currentTarget.id));
 
-search.addEventListener("input", (e) => getHospital(e.target.value));
-SelectDistrito.addEventListener("change", () => switchDistrito(SelectDistrito.options[SelectDistrito.selectedIndex].value));
+miniTabProfileUser.addEventListener("click", () => tabProfileUserDescription());
 
 // boton de publicar un post
 
@@ -594,3 +409,244 @@ btnPublic[1].addEventListener("click", () => {
     }
   }
 });
+
+
+
+
+
+
+
+
+// funciones
+
+const showElementTab = (element) => {
+  element.style.display = "block";
+  element.className += " active";
+}
+
+const hideElementsTab = (arr) => {
+  arr.forEach(element => {
+    element.style.display = "none";
+    let classes = element.className.replace("active", "");
+    element.className = classes;
+  });
+}
+
+const sortHospitalByDistrit = (distrito) => {
+  const newListHospital = listHospital.filter(hospital => hospital.distrito === distrito);
+  const byDistrit = newListHospital.sort((a, b) => {
+    let x = a.distrito.toLowerCase();
+    let y = b.distrito.toLowerCase();
+    if (x < y) {
+      return -1;
+    }
+    if (x > y) {
+      return 1;
+    }
+    return 0;
+  });
+  return byDistrit;
+}
+
+const orderByDistritSort = (name_distrito) => {
+  tableHospitalSearch.innerHTML = "";
+  const distrit = sortHospitalByDistrit(name_distrito);
+  distrit.map(hospital => {
+    tableHospitalSearch.innerHTML += `
+    <tr>
+      <td>${hospital.clinica}</td>
+      <td>${hospital.direccion}</td>
+      <td>${hospital.distrito}</td>
+    </tr>
+    `;
+  });
+}
+
+const switchDistrito = (distrito) => {
+  switch (distrito) {
+    case 'san-isidro':
+      orderByDistritSort("San Isidro");
+      break;
+    case 'miraflores':
+      orderByDistritSort("Miraflores");
+      break;
+    case 'surco':
+      orderByDistritSort("Surco");
+      break;
+    case 'pueblo-libre':
+      orderByDistritSort("Pueblo Libre");
+      break;
+    case 'lima':
+      orderByDistritSort("Lima");
+      break;
+    case 'san-borja':
+      orderByDistritSort("San Borja");
+      break;
+    case 'smp':
+      orderByDistritSort("S.M.P.");
+      break;
+    case 'molina':
+      orderByDistritSort("La Molina");
+      break;
+    case 'callao':
+      orderByDistritSort("Callao");
+      break;
+    case 'breña':
+      orderByDistritSort("Breña");
+      break;
+    case 'sjl':
+      orderByDistritSort("San Juan de Lurigancho");
+      break;
+    case 'san-miguel':
+      orderByDistritSort("San Miguel");
+      break;
+    case 'independencia':
+      orderByDistritSort("Independencia");
+      break;
+    case 'sjm':
+      orderByDistritSort("San Juan De Miraflores");
+      break;
+    case 'cañete':
+      orderByDistritSort("Cañete");
+      break;
+    case 'jesus-maria':
+      orderByDistritSort("Jesús María");
+      break;
+    case 'surquillo':
+      orderByDistritSort("Surquillo");
+      break;
+    case 'chorrilos':
+      orderByDistritSort("Chorrillos");
+      break;
+    case 'san-luis':
+      orderByDistritSort("San Luis");
+      break;
+    case 'los-olivos':
+      orderByDistritSort("Los Olivos");
+      break;
+    case 'lince':
+      orderByDistritSort("Lince");
+      break;
+    default:
+      break;
+  }
+}
+
+const searchByName = (hospitales, text) => {
+  let filterByHospital = hospitales.filter(hospital => {
+    return hospital.clinica.toUpperCase().indexOf(text.toUpperCase()) > -1;
+  });
+  return filterByHospital;
+}
+
+const showHospitalList = (list, e) => {
+  if (e === "linkHospital" || e === "mini-nav-modal-hospital") {
+    list.map(hospital => {
+      tableHospital.innerHTML += `
+      <tr>
+        <td>${hospital.clinica}</td>
+        <td>${hospital.direccion}</td>
+        <td>${hospital.distrito}</td>
+      </tr>
+      `;
+    });
+  } else if (e === "linkSearch" || e === "mini-nav-modal-search") {
+    tableHospitalSearch.innerHTML = "";
+    list.map(hospital => {
+      tableHospitalSearch.innerHTML += `
+      <tr>
+        <td>${hospital.clinica}</td>
+        <td>${hospital.direccion}</td>
+        <td>${hospital.distrito}</td>
+      </tr>
+      `;
+    });
+  } else {
+    const filterHospital = searchByName(list, e);
+    tableHospitalSearch.innerHTML = "";
+    filterHospital.map(hospital => {
+      tableHospitalSearch.innerHTML += `
+      <tr>
+        <td>${hospital.clinica}</td>
+        <td>${hospital.direccion}</td>
+        <td>${hospital.distrito}</td>
+      </tr>
+      `;
+    })
+  }
+}
+
+const getHospital = (e) => {
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', '../data/hospitales.json', true);
+  xhr.onload = () => {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      let xhrHospital = JSON.parse(xhr.responseText);
+      listHospital = xhrHospital;
+      if (e === "linkHospital" || e === "mini-nav-modal-hospital" || e === "linkSearch" || e === "mini-nav-modal-search") {
+        showHospitalList(xhrHospital, e);
+      } else {
+        showHospitalList(xhrHospital, e);
+      }
+    }
+  }
+  xhr.send();
+}
+
+const tabHomeDescription = () => {
+  hideElementsTab([sectionSearch, sectionHospital, sectionProfileUser]);
+  // mostrarAllPost();
+  showElementTab(sectionHome);
+}
+
+const tabHospitalDescription = (e) => {
+  sectionHospital.style.display = "block";
+  sectionHome.style.display = "none";
+  sectionProfileUser.style.display = "none";
+  sectionSearch.style.display = "none";
+  getHospital(e);
+}
+
+const tabSearchDescription = (e) => {
+  sectionSearch.style.display = "block";
+  sectionHospital.style.display = "none";
+  sectionHome.style.display = "none";
+  sectionProfileUser.style.display = "none";
+  getHospital(e);
+}
+
+const tabProfileUserDescription = () => {
+  hideElementsTab([sectionHospital, sectionHome, sectionSearch])
+  showElementTab(sectionProfileUser);
+}
+
+
+
+
+
+
+// acciones de botones
+
+logOut.addEventListener("click", () => {
+  firebase.auth().signOut().then(() => {
+    window.location.href = '../../src/'
+  })
+});
+
+miniBtnLogout.addEventListener("click", () => {
+  firebase.auth().signOut().then(() => {
+    window.location.href = '../../src/'
+  })
+});
+
+tabHome.addEventListener("click", () => tabHomeDescription());
+miniTabHome.addEventListener("click", () => tabHomeDescription());
+
+tabHospital.addEventListener("click", (e) => tabHospitalDescription(e.currentTarget.id));
+miniTabHospital.addEventListener("click", (e) => tabHospitalDescription(e.currentTarget.id));
+
+miniTabSearch.addEventListener("click", (e) => tabSearchDescription(e.currentTarget.id));
+tabSearch.addEventListener("click", (e) => tabSearchDescription(e.currentTarget.id));
+searchName.addEventListener("input", (e) => getHospital(e.target.value)); //input para buscar el nombre del hospital
+selectDistrito.addEventListener("change", () => switchDistrito(selectDistrito.options[selectDistrito.selectedIndex].value));
+

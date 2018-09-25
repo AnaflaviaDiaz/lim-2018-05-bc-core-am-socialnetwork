@@ -17,7 +17,9 @@
 </head>
 
 <body>
-  <header class="center-align" id="menu-header"></header>
+  <header class="center-align" id="menu-header">
+  </header>
+
   <div class="container black">
     <main class="center col s12">
       <aside id="section-home" class="center">
@@ -48,7 +50,7 @@
               </div>
             </div>
           </div>
-          <div id="section_posts" class=""></div>
+          <div id="section_posts"></div>
         </div>
       </aside>
       <aside id="section-hospital" style="display: none">
@@ -69,7 +71,7 @@
           <div class="nav-wrapper">
             <form>
               <div class="input-field s8">
-                <input id="search" type="search" required>
+                <input id="search-by-name" type="search" required>
                 <label class="label-icon" for="search">
                   <i class="material-icons">search</i>
                 </label>
@@ -157,7 +159,7 @@
     </main>
   </div>
 
-  <script src="../firebase/firebase.js"></script>
+  <script src="../data/mockFirebase.js"></script>
   <script src="../js/materialize.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="../components/header-menu.js"></script>
@@ -165,4 +167,3 @@
 </body>
 
 </html>
-

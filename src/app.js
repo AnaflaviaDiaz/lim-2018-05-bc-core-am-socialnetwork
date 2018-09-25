@@ -2,7 +2,7 @@
 const sectionHeader = document.getElementById("header-main");
 sectionHeader.innerHTML = headerMain; //obtiene la seccion en que pintara y la une con el codigo del componente
 
-const sectionMuroFalso = document.getElementById("muro-falso");
+const sectionPostPublicos = document.getElementById("contenido-post-publicos");
 
 // botones de NAV
 const navBtnLogIn = document.getElementById("nav-modal-log-in");
@@ -370,7 +370,7 @@ const closeNavModalSignUp = () => {
 }
 
 const pintarPost = (post) => {
-  sectionMuroFalso.innerHTML +=
+  sectionPostPublicos.innerHTML +=
     `<div class="row" id="${post.idPost}">
     <div class="col s12">
       <div class="card">
@@ -475,7 +475,7 @@ btnSignUpUsers.addEventListener("click", (e) => {
   showAlertSignUpUsers(validate, e);
 });
 goToLogInFromUsers.addEventListener("click", () => showLogIn());
-sectionMuroFalso.addEventListener("click", () => openNavModalLogIn());
+sectionPostPublicos.addEventListener("click", () => openNavModalLogIn());
 
 // FUNCIÓN PARA EL MENÚ DESPLEGABLE
 document.addEventListener('DOMContentLoaded', () => {
