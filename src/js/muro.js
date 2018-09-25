@@ -40,44 +40,13 @@ const sectionProfileUser = document.getElementById('section-profile-user');
 const txtPostUserProfile = document.getElementById('textarea-post-user-profile');
 const selectPrivacityProfile = document.getElementById('select-privacity-profile');
 const btnPublicPostProfile = document.getElementById('btn-publicar-profile');
+const bodyPostProfile = document.getElementById('section-posts-profile');
 const userName = document.getElementById('user-name-profile');
 
-// FUNCIÓN PARA EL MENÚ DESPLEGABLE
 document.addEventListener('DOMContentLoaded', function () {
   const elems = document.querySelectorAll('.sidenav');
   M.Sidenav.init(elems);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// post
-const postUser = document.querySelectorAll('#textarea-post-user');
-const btnPublic = document.querySelectorAll('#btn-publicar');
-
-const bodyPostProfile = document.getElementById('section-posts-profile');
-
-
-let bodyPosts;
-
-let ref_ = '';
 
 
 // funciones firebase
@@ -177,6 +146,7 @@ const showAllPost = () => {
 }
 
 const showAllPostProfile = () => {
+  let ref_ = '';
   let x__ = firebase.auth().currentUser;
   ref_ = '/users/' + x__.uid + '/posts'
   let cont = 0;
@@ -286,14 +256,11 @@ const deletePost = (post, sectionid) => {
     });
 }
 
-// FUNCION QUE PERMITE EDITAR PUBLICACION
 const editPost = (post, sectionid) => {
-  const x = firebase.auth().currentUser;
-  // let idpost = post.idPost;
-  let postId = post.dataset.idpost;
-  postP = document.querySelector(sectionid + " p." + postId),
-    saveButton = document.querySelector(sectionid + " a#" + postId),
-    postTextArea = document.querySelector(sectionid + " textarea." + postId);
+  const postId = post.dataset.idpost;
+  const postP = document.querySelector(sectionid + " p." + postId);
+  const saveButton = document.querySelector(sectionid + " a#" + postId);
+  const postTextArea = document.querySelector(sectionid + " textarea." + postId);
   //mostrar text area y oculpar p tag
   postP.style.display = "none";
   postTextArea.style.display = "block";
