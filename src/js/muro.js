@@ -22,6 +22,7 @@ const sectionHome = document.getElementById('section-home');
 const txtPostUserHome = document.getElementById('textarea-post-user-home');
 const selectPrivacity = document.getElementById('select-privacity-home');
 const btnPublicPostHome = document.getElementById('btn-publicar-home');
+const bodyPostHome = document.getElementById('section-posts-home');
 
 const sectionHospital = document.getElementById('section-hospital');
 const tableHospital = document.getElementById('table-hospital');
@@ -70,8 +71,8 @@ document.addEventListener('DOMContentLoaded', function () {
 // post
 const postUser = document.querySelectorAll('#textarea-post-user');
 const btnPublic = document.querySelectorAll('#btn-publicar');
-const bodyPostInicio = document.getElementById('section_posts');
-const bodyPostProfile = document.getElementById('section_posts_profile');
+
+const bodyPostProfile = document.getElementById('section-posts-profile');
 
 
 let bodyPosts;
@@ -99,25 +100,20 @@ const makePost = (text) => {
   firebase.database().ref().update(updates)
 };
 
-window.onload = () => {
-  showAllPost();
-  setTimeout(() => {
-    showAllPostProfile();
-  }, 1500)
-}
+
 // FUNCION PARA MOSTRAR POST EN INTERFAZ
 const showAllPost = () => {
   let cont = 0;
   let ref = firebase.database().ref('/post');
   ref.on('child_added', (newPost) => {
-    //bodyPostInicio.innerHTML = '';
+    //bodyPostHome.innerHTML = '';
     let post = newPost.val();
     let x = firebase.auth().currentUser,
       uuid = x.uid;
     firebase.database().ref('/users/' + post.uid).once('value').then((snapshot) => {
       cont++;
       var username = (snapshot.val().username) || 'Anonymous';
-      bodyPostInicio.innerHTML = `
+      bodyPostHome.innerHTML = `
       <div id="${post.idPost}">
         <div class="col s12">
           <div class="card">
@@ -127,11 +123,11 @@ const showAllPost = () => {
                   <i class="material-icons left ${uuid == post.uid ? "dblock" : "dnone"}">more_vert</i>
                 </a>
                 <ul id="dropdown${cont}" class="dropdown-content">
-                  <li data-idpost="${post.idPost}" data-iduser="${post.uid}" onclick="editPost(this, '#section_posts') ">
+                  <li data-idpost="${post.idPost}" data-iduser="${post.uid}" onclick="editPost(this, '#section-posts-home') ">
                     <a >
                       <i class="material-icons">mode_edit</i>Editar</a>
                   </li >
-                  <li data-idpost="${post.idPost}" data-iduser="${post.uid}" onclick="deletePost(this, '#section_posts')">
+                  <li data-idpost="${post.idPost}" data-iduser="${post.uid}" onclick="deletePost(this, '#section-posts-home')">
                     <a>
                       <i class="material-icons">delete</i>Eliminar</a>
                   </li>
@@ -148,25 +144,25 @@ const showAllPost = () => {
                 <i class="material-icons ${post.idPost}" onclick="likePost(this)" style="${post.whoMakeLikes ? post.whoMakeLikes[uuid] ? 'color:red' : 'color:#ffab40' : null}">favorite_border</i>
               </a>
               <a class="post-likes">${post.countLike ? post.countLike : 0}</a>
-              <a id="${post.idPost}" onclick="savePost(this, '#section_posts')" class="dnone waves-effect waves-light btn">
+              <a id="${post.idPost}" onclick="savePost(this, '#section-posts-home')" class="dnone waves-effect waves-light btn">
                 <i class="mdi-maps-rate-review left">Guardar</i>
               </a>
             </div>
           </div>
         </div>
       </div>
-  ` + bodyPostInicio.innerHTML;
-      let elems = document.querySelectorAll('#section_posts .dropdown-trigger');
+  ` + bodyPostHome.innerHTML;
+      let elems = document.querySelectorAll('#section-posts-home .dropdown-trigger');
       M.Dropdown.init(elems);
     });
   });
   ref.on('child_changed', data => {
     let postIdToUpdate = data.val().idPost;
     let uuid = firebase.auth().currentUser.uid;
-    let postP = document.querySelector("#section_posts_profile p." + postIdToUpdate),
-      postTextArea = document.querySelector("#section_posts_profile textarea." + postIdToUpdate),
-      postLikeCounter = document.querySelector("#section_posts_profile div#" + postIdToUpdate + " a.post-likes"),
-      heartLike = document.querySelector("#section_posts_profile i." + postIdToUpdate);
+    let postP = document.querySelector("#section-posts-profile p." + postIdToUpdate),
+      postTextArea = document.querySelector("#section-posts-profile textarea." + postIdToUpdate),
+      postLikeCounter = document.querySelector("#section-posts-profile div#" + postIdToUpdate + " a.post-likes"),
+      heartLike = document.querySelector("#section-posts-profile i." + postIdToUpdate);
 
     postP.innerText = data.val().description;
     postTextArea.innerHTML = data.val().description;
@@ -175,7 +171,7 @@ const showAllPost = () => {
 
   });
   ref.on('child_removed', (data) => {
-    let postBlock = document.querySelector("#section_posts_profile div#" + data.val().idPost);
+    let postBlock = document.querySelector("#section-posts-profile div#" + data.val().idPost);
     postBlock.parentNode.removeChild(postBlock);
   })
 }
@@ -204,11 +200,11 @@ const showAllPostProfile = () => {
                   <i class="material-icons left ${uuid == post.uid ? "dblock" : "dnone"}">more_vert</i>
                 </a>
                 <ul id="dropdowns${cont}" class="dropdown-content">
-                  <li data-idpost="${post.idPost}" data-iduser="${post.uid}" onclick="editPost(this, '#section_posts_profile') ">
+                  <li data-idpost="${post.idPost}" data-iduser="${post.uid}" onclick="editPost(this, '#section-posts-profile') ">
                     <a >
                       <i class="material-icons">mode_edit</i>Editar</a>
                   </li >
-                  <li data-idpost="${post.idPost}" data-iduser="${post.uid}" onclick="deletePost(this, '#section_posts_profile')">
+                  <li data-idpost="${post.idPost}" data-iduser="${post.uid}" onclick="deletePost(this, '#section-posts-profile')">
                     <a>
                       <i class="material-icons">delete</i>Eliminar</a>
                   </li>
@@ -226,7 +222,7 @@ const showAllPostProfile = () => {
               </a>
               <a class="post-likes">${post.countLike ? post.countLike : 0}</a>
               <a>Comentario</a>
-              <a id="${post.idPost}" onclick="savePost(this, '#section_posts_profile')" class="dnone waves-effect waves-light btn">
+              <a id="${post.idPost}" onclick="savePost(this, '#section-posts-profile')" class="dnone waves-effect waves-light btn">
                 <i class="mdi-maps-rate-review left">Guardar</i>
               </a>
             </div>
@@ -235,7 +231,7 @@ const showAllPostProfile = () => {
       </div>
   ` + bodyPostProfile.innerHTML;
 
-      let elems_profile = document.querySelectorAll('#section_posts_profile .dropdown-trigger');
+      let elems_profile = document.querySelectorAll('#section-posts-profile .dropdown-trigger');
       M.Dropdown.init(elems_profile);
 
     });
@@ -243,10 +239,10 @@ const showAllPostProfile = () => {
   ref.on('child_changed', data => {
     let postIdToUpdate = data.val().idPost;
     let uuid = firebase.auth().currentUser.uid;
-    let postP = document.querySelector("#section_posts p." + postIdToUpdate),
-      postTextArea = document.querySelector("#section_posts textarea." + postIdToUpdate),
-      postLikeCounter = document.querySelector("#section_posts div#" + postIdToUpdate + " a.post-likes"),
-      heartLike = document.querySelector("#section_posts i." + postIdToUpdate);
+    let postP = document.querySelector("#section-posts-home p." + postIdToUpdate),
+      postTextArea = document.querySelector("#section-posts-home textarea." + postIdToUpdate),
+      postLikeCounter = document.querySelector("#section-posts-home div#" + postIdToUpdate + " a.post-likes"),
+      heartLike = document.querySelector("#section-posts-home i." + postIdToUpdate);
 
     postP.innerText = data.val().description;
     postTextArea.innerHTML = data.val().description;
@@ -255,7 +251,7 @@ const showAllPostProfile = () => {
 
   });
   ref.on('child_removed', (data) => {
-    let postBlock = document.querySelector("#section_posts div#" + data.val().idPost);
+    let postBlock = document.querySelector("#section-posts-home div#" + data.val().idPost);
     postBlock.parentNode.removeChild(postBlock);
   })
 }
@@ -642,3 +638,10 @@ btnPublicPostProfile.addEventListener('click', () => {
     }
   }
 });
+
+window.onload = () => {
+  showAllPost();
+  setTimeout(() => {
+    showAllPostProfile();
+  }, 1500)
+}
