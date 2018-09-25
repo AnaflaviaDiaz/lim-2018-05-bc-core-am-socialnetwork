@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // funciones firebase
 
-//FUNCION PARA CREAR POST Y GUARDAR EN DATABASE DE FIREBASE
 const makePost = (text) => {
   const userFire = firebase.auth().currentUser;
   const datePosted = new Date();
@@ -267,32 +266,27 @@ const editPost = (post, sectionid) => {
   saveButton.style.display = "inline-block";
 }
 
-// FUNCION QUE PERMITE GUARDAR  EN FIREBASE PUBLICACION EDITADA
 const savePost = (post, sectionid) => {
-  let postId = post.attributes["0"].value,
-    newPost = document.querySelector(sectionid + " textarea." + postId).value;
-  const x = firebase.auth().currentUser;
-  let dateUpdated = new Date();
-
-  let updates = {};
-  updates['/post/' + postId + '/updated_at'] = dateUpdated;
+  const postId = post.attributes["0"].value;
+  const newPost = document.querySelector(sectionid + " textarea." + postId).value;
+  const userFire = firebase.auth().currentUser;
+  const updates = {};
   updates['/post/' + postId + '/description'] = newPost;
-  updates['/users/' + x.uid + '/posts/' + postId + '/description'] = newPost;
-  updates['/users/' + x.uid + '/posts/' + postId + '/updated_at'] = dateUpdated;
+  updates['/users/' + userFire.uid + '/posts/' + postId + '/description'] = newPost;
   firebase.database().ref().update(updates, (error) => {
     if (error) {
       alert("Ocurrio un error, intentelo mas tarde!");
     } else {
-      let postP = document.querySelector(sectionid + " p." + postId),
-        saveButton = document.querySelector(sectionid + " a#" + postId),
-        posTextArea = document.querySelector(sectionid + " textarea." + postId);
+      const postP = document.querySelector(sectionid + " p." + postId);
+      const saveButton = document.querySelector(sectionid + " a#" + postId);
+      const posTextArea = document.querySelector(sectionid + " textarea." + postId);
       postP.innerText = newPost;
       posTextArea.innerHTML = newPost;
       postP.style.display = "block";
       posTextArea.style.display = "none";
       saveButton.style.display = "none";
     }
-  })
+  });
 }
 
 const likePost = (favorite) => {
