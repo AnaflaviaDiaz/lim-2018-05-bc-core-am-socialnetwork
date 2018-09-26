@@ -518,6 +518,18 @@ const tabProfileUserDescription = () => {
   showElementTab(sectionProfileUser);
 }
 
+const getUser = () => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .database()
+      .ref()
+      .child('users')
+      .on('value', (snap) => {
+        resolve(snap.val());
+      });
+  });
+}
+
 logOut.addEventListener('click', () => {
   firebase.auth().signOut().then(() => {
     window.location.href = '../../src/'
@@ -576,5 +588,13 @@ window.onload = () => {
   showAllPost();
   setTimeout(() => {
     showAllPostProfile();
-  }, 1500)
+  }, 1500);
+  getUser().then((users) => {
+    console.log(users);
+    firebase.auth().onAuthStateChanged(user => {
+      if (users[user.uid].email === user.email) {
+        userName.innerHTML = users[user.uid].username;
+      }
+    });
+  });
 }
