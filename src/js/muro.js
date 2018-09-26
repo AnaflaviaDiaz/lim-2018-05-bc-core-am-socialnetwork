@@ -49,8 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// funciones firebase
-
 const makePost = (text) => {
   const userFire = firebase.auth().currentUser;
   const datePosted = new Date();
@@ -68,19 +66,16 @@ const makePost = (text) => {
   firebase.database().ref().update(updates)
 };
 
-
-// FUNCION PARA MOSTRAR POST EN INTERFAZ
 const showAllPost = () => {
   let cont = 0;
-  let ref = firebase.database().ref('/post');
+  const ref = firebase.database().ref('/post');
   ref.on('child_added', (newPost) => {
-    //bodyPostHome.innerHTML = '';
-    let post = newPost.val();
-    let x = firebase.auth().currentUser,
-      uuid = x.uid;
+    const post = newPost.val();
+    const userFire = firebase.auth().currentUser;
+    const userFireUid = userFire.uid;
     firebase.database().ref('/users/' + post.uid).once('value').then((snapshot) => {
       cont++;
-      var username = (snapshot.val().username) || 'Anonymous';
+      const username = (snapshot.val().username) || 'Anonymous';
       bodyPostHome.innerHTML = `
       <div id="${post.idPost}">
         <div class="col s12">
@@ -88,7 +83,7 @@ const showAllPost = () => {
             <div class="card-content black-text">
               <div class="col s12 m6 right">
                 <a class="dropdown-trigger right" href="#" data-target="dropdown${cont}">
-                  <i class="material-icons left ${uuid == post.uid ? "dblock" : "dnone"}">more_vert</i>
+                  <i class="material-icons left ${userFireUid == post.uid ? "dblock" : "dnone"}">more_vert</i>
                 </a>
                 <ul id="dropdown${cont}" class="dropdown-content">
                   <li data-idpost="${post.idPost}" data-iduser="${post.uid}" onclick="editPost(this, '#section-posts-home') ">
@@ -109,7 +104,7 @@ const showAllPost = () => {
             </div>
             <div class="card-action">
               <a class="heart">
-                <i class="material-icons ${post.idPost}" onclick="likePost(this)" style="${post.whoMakeLikes ? post.whoMakeLikes[uuid] ? 'color:red' : 'color:#ffab40' : null}">favorite_border</i>
+                <i class="material-icons ${post.idPost}" onclick="likePost(this)" style="${post.whoMakeLikes ? post.whoMakeLikes[userFireUid] ? 'color:red' : 'color:#ffab40' : null}">favorite_border</i>
               </a>
               <a class="post-likes">${post.countLike ? post.countLike : 0}</a>
               <a id="${post.idPost}" onclick="savePost(this, '#section-posts-home')" class="dnone waves-effect waves-light btn">
@@ -120,44 +115,41 @@ const showAllPost = () => {
         </div>
       </div>
   ` + bodyPostHome.innerHTML;
-      let elems = document.querySelectorAll('#section-posts-home .dropdown-trigger');
+      const elems = document.querySelectorAll('#section-posts-home .dropdown-trigger');
       M.Dropdown.init(elems);
     });
   });
   ref.on('child_changed', data => {
-    let postIdToUpdate = data.val().idPost;
-    let uuid = firebase.auth().currentUser.uid;
-    let postP = document.querySelector("#section-posts-profile p." + postIdToUpdate),
-      postTextArea = document.querySelector("#section-posts-profile textarea." + postIdToUpdate),
-      postLikeCounter = document.querySelector("#section-posts-profile div#" + postIdToUpdate + " a.post-likes"),
-      heartLike = document.querySelector("#section-posts-profile i." + postIdToUpdate);
-
+    const postIdToUpdate = data.val().idPost;
+    const userFireUid = firebase.auth().currentUser.uid;
+    const postP = document.querySelector("#section-posts-profile p." + postIdToUpdate);
+    const postTextArea = document.querySelector("#section-posts-profile textarea." + postIdToUpdate);
+    const postLikeCounter = document.querySelector("#section-posts-profile div#" + postIdToUpdate + " a.post-likes");
+    const heartLike = document.querySelector("#section-posts-profile i." + postIdToUpdate);
     postP.innerText = data.val().description;
     postTextArea.innerHTML = data.val().description;
     postLikeCounter.innerText = data.val().countLike || 0;
-    data.val().whoMakeLikes ? data.val().whoMakeLikes[uuid] ? heartLike.style.cssText = "color:red;" : heartLike.style.cssText = "color:#ffab40;" : heartLike.style.cssText = "color:#ffab40;";
-
+    data.val().whoMakeLikes ? data.val().whoMakeLikes[userFireUid] ? heartLike.style.cssText = "color:red;" : heartLike.style.cssText = "color:#ffab40;" : heartLike.style.cssText = "color:#ffab40;";
   });
   ref.on('child_removed', (data) => {
     let postBlock = document.querySelector("#section-posts-profile div#" + data.val().idPost);
     postBlock.parentNode.removeChild(postBlock);
-  })
+  });
 }
 
 const showAllPostProfile = () => {
   let ref_ = '';
-  let x__ = firebase.auth().currentUser;
+  const x__ = firebase.auth().currentUser;
   ref_ = '/users/' + x__.uid + '/posts'
   let cont = 0;
-  let ref = firebase.database().ref(ref_);
+  const ref = firebase.database().ref(ref_);
 
   ref.on('child_added', (newPost) => {
-    let post = newPost.val();
-    let x = firebase.auth().currentUser,
-      uuid = x.uid;
+    const post = newPost.val();
+    const userFire = firebase.auth().currentUser;
+    const uuid = userFire.uid;
     firebase.database().ref('/users/' + post.uid).once('value').then((snapshot) => {
-
-      let username = (snapshot.val().username) || 'Anonymous';
+      const username = (snapshot.val().username) || 'Anonymous';
       cont++;
       bodyPostProfile.innerHTML = `
       <div id="${post.idPost}">
@@ -199,33 +191,28 @@ const showAllPostProfile = () => {
         </div>
       </div>
   ` + bodyPostProfile.innerHTML;
-
-      let elems_profile = document.querySelectorAll('#section-posts-profile .dropdown-trigger');
+      const elems_profile = document.querySelectorAll('#section-posts-profile .dropdown-trigger');
       M.Dropdown.init(elems_profile);
-
     });
   });
   ref.on('child_changed', data => {
-    let postIdToUpdate = data.val().idPost;
-    let uuid = firebase.auth().currentUser.uid;
-    let postP = document.querySelector("#section-posts-home p." + postIdToUpdate),
-      postTextArea = document.querySelector("#section-posts-home textarea." + postIdToUpdate),
-      postLikeCounter = document.querySelector("#section-posts-home div#" + postIdToUpdate + " a.post-likes"),
-      heartLike = document.querySelector("#section-posts-home i." + postIdToUpdate);
-
+    const postIdToUpdate = data.val().idPost;
+    const uuid = firebase.auth().currentUser.uid;
+    const postP = document.querySelector("#section-posts-home p." + postIdToUpdate);
+    const postTextArea = document.querySelector("#section-posts-home textarea." + postIdToUpdate);
+    const postLikeCounter = document.querySelector("#section-posts-home div#" + postIdToUpdate + " a.post-likes");
+    const heartLike = document.querySelector("#section-posts-home i." + postIdToUpdate);
     postP.innerText = data.val().description;
     postTextArea.innerHTML = data.val().description;
     postLikeCounter.innerText = data.val().countLike || 0;
     data.val().whoMakeLikes ? data.val().whoMakeLikes[uuid] ? heartLike.style.cssText = "color:red;" : heartLike.style.cssText = "color:#ffab40;" : heartLike.style.cssText = "color:#ffab40;";
-
   });
   ref.on('child_removed', (data) => {
-    let postBlock = document.querySelector("#section-posts-home div#" + data.val().idPost);
+    const postBlock = document.querySelector("#section-posts-home div#" + data.val().idPost);
     postBlock.parentNode.removeChild(postBlock);
-  })
+  });
 }
 
-// FUNCION QUE PERMITE ELIMINAR POST
 const deletePost = (post, sectionid) => {
   const postId = post.dataset.idpost;
   const userFire = firebase.auth().currentUser;
@@ -329,12 +316,6 @@ const likePost = (favorite) => {
     }
   });
 }
-
-
-
-
-
-// funciones ordenadas
 
 const showElementTab = (element) => {
   element.style.display = 'block';
@@ -536,13 +517,6 @@ const tabProfileUserDescription = () => {
   hideElementsTab([sectionHospital, sectionHome, sectionSearch])
   showElementTab(sectionProfileUser);
 }
-
-
-
-
-
-
-// acciones de botones
 
 logOut.addEventListener('click', () => {
   firebase.auth().signOut().then(() => {
